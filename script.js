@@ -11,6 +11,10 @@ const winnerDisplay = document.getElementById('winner-display');
 const car1 = document.querySelector('.car1');
 const car2 = document.querySelector('.car2');
 
+// Add after the existing event listeners
+const player1Btn = document.querySelector('.player1-btn');
+const player2Btn = document.querySelector('.player2-btn');
+
 startButton.addEventListener('click', startGame);
 
 document.addEventListener('keyup', (event) => {
@@ -22,6 +26,19 @@ document.addEventListener('keyup', (event) => {
         } else if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
             updateScore(2);
         }
+    }
+});
+
+// Add touch/click events for mobile buttons
+player1Btn.addEventListener('click', () => {
+    if (gameActive) {
+        updateScore(1);
+    }
+});
+
+player2Btn.addEventListener('click', () => {
+    if (gameActive) {
+        updateScore(2);
     }
 });
 
@@ -123,4 +140,18 @@ function startGame() {
     // Clear any remaining fireworks
     const fireworksContainer = document.querySelector('.fireworks-container');
     fireworksContainer.innerHTML = '';
-} 
+}
+
+// Update the game info text based on device
+function updateGameInstructions() {
+    const gameInfo = document.querySelector('.game-info p:nth-child(2)');
+    if (window.innerWidth <= 1024) {
+        gameInfo.textContent = 'Tap the colored buttons to race!';
+    } else {
+        gameInfo.textContent = 'Player 1: LEFT SHIFT | Player 2: RIGHT SHIFT';
+    }
+}
+
+// Call on load and window resize
+window.addEventListener('load', updateGameInstructions);
+window.addEventListener('resize', updateGameInstructions); 
