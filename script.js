@@ -29,37 +29,36 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-// Replace the existing button click event listeners with these touch events
+// Replace the touch event listeners
 player1Btn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevent any default touch behaviors
+    e.preventDefault();
     if (gameActive) {
+        e.stopPropagation();
         updateScore(1);
     }
 }, { passive: false });
 
 player2Btn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevent any default touch behaviors
+    e.preventDefault();
     if (gameActive) {
+        e.stopPropagation();
         updateScore(2);
     }
 }, { passive: false });
 
-// Keep the click events for desktop testing
-player1Btn.addEventListener('click', (e) => {
-    if (gameActive && e.pointerType !== 'touch') { // Only handle non-touch clicks
-        updateScore(1);
-    }
-});
+// Prevent any default behaviors and ghost clicks
+player1Btn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}, { passive: false });
 
-player2Btn.addEventListener('click', (e) => {
-    if (gameActive && e.pointerType !== 'touch') { // Only handle non-touch clicks
-        updateScore(2);
-    }
-});
+player2Btn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+}, { passive: false });
 
-// Add this to prevent any touch event defaults on the buttons
-player1Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
-player2Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+// Remove the click event listeners since we're handling touch directly
+// Only keep keyboard events for desktop
 
 function updateScore(player) {
     if (player === 1) {
