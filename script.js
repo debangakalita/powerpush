@@ -30,35 +30,40 @@ document.addEventListener('keyup', (event) => {
 });
 
 // Replace the touch event listeners
-player1Btn.addEventListener('touchstart', (e) => {
+player1Btn.addEventListener('touchstart', handleTouch, { passive: false });
+player2Btn.addEventListener('touchstart', handleTouch, { passive: false });
+
+// Prevent default on touchend to avoid any unwanted behaviors
+player1Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+player2Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+
+function handleTouch(e) {
     e.preventDefault();
-    if (gameActive) {
-        e.stopPropagation();
-        updateScore(1);
+    
+    if (!gameActive) return;
+
+    // Get all touch points
+    const touches = e.touches;
+    
+    // Process each touch point
+    for (let i = 0; i < touches.length; i++) {
+        const touch = touches[i];
+        const target = touch.target;
+
+        if (target.classList.contains('player1-btn')) {
+            updateScore(1);
+        } else if (target.classList.contains('player2-btn')) {
+            updateScore(2);
+        }
+    }
+}
+
+// Add touch move handling to prevent scrolling while touching buttons
+document.addEventListener('touchmove', (e) => {
+    if (e.target.classList.contains('touch-btn')) {
+        e.preventDefault();
     }
 }, { passive: false });
-
-player2Btn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    if (gameActive) {
-        e.stopPropagation();
-        updateScore(2);
-    }
-}, { passive: false });
-
-// Prevent any default behaviors and ghost clicks
-player1Btn.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-}, { passive: false });
-
-player2Btn.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-}, { passive: false });
-
-// Remove the click event listeners since we're handling touch directly
-// Only keep keyboard events for desktop
 
 function updateScore(player) {
     if (player === 1) {
