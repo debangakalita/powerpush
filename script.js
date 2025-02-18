@@ -29,18 +29,37 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-// Add touch/click events for mobile buttons
-player1Btn.addEventListener('click', () => {
+// Replace the existing button click event listeners with these touch events
+player1Btn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevent any default touch behaviors
     if (gameActive) {
+        updateScore(1);
+    }
+}, { passive: false });
+
+player2Btn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevent any default touch behaviors
+    if (gameActive) {
+        updateScore(2);
+    }
+}, { passive: false });
+
+// Keep the click events for desktop testing
+player1Btn.addEventListener('click', (e) => {
+    if (gameActive && e.pointerType !== 'touch') { // Only handle non-touch clicks
         updateScore(1);
     }
 });
 
-player2Btn.addEventListener('click', () => {
-    if (gameActive) {
+player2Btn.addEventListener('click', (e) => {
+    if (gameActive && e.pointerType !== 'touch') { // Only handle non-touch clicks
         updateScore(2);
     }
 });
+
+// Add this to prevent any touch event defaults on the buttons
+player1Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
+player2Btn.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
 
 function updateScore(player) {
     if (player === 1) {
