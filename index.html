@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shift Key Race</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shift Key Race</h1>
+        <div class="game-info">
+            <p>First player to reach 100 clicks wins!</p>
+            <p>Player 1: LEFT SHIFT | Player 2: RIGHT SHIFT</p>
+        </div>
+        
+        <button id="start-btn">Start Race</button>
+
+        <div class="race-track">
+            <div class="track">
+                <div class="lane player1-lane">
+                    <div class="car car1">
+                        <img src="cars/player1.svg" alt="Player 1 Car">
+                    </div>
+                </div>
+                <div class="lane player2-lane">
+                    <div class="car car2">
+                        <img src="cars/player2.svg" alt="Player 2 Car">
+                    </div>
+                </div>
+                <div class="finish-line">
+                    <span>🏁</span><span>🏁</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scores">
+            <div class="player">
+                <h2>Player 1</h2>
+                <p>Clicks: <span id="player1-score">0</span>/100</p>
+            </div>
+            <div class="player">
+                <h2>Player 2</h2>
+                <p>Clicks: <span id="player2-score">0</span>/100</p>
+            </div>
+        </div>
+
+        <div id="winner-display"></div>
+    </div>
+    <div class="fireworks-container"></div>
+    <script src="script.js"></script>
+</body>
+</html> 
