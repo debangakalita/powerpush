@@ -202,11 +202,70 @@ h1 {
 
 /* Media query for tablets and mobile */
 @media (max-width: 1024px) {
+    .container {
+        width: 100%;
+        max-width: 500px;
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .track {
+        width: 280px;
+        height: 350px;
+    }
+
     .touch-controls {
         display: flex;
     }
 
-    .game-info p:nth-child(2) {
-        display: none; /* Hide the keyboard instructions on touch devices */
+    .touch-btn {
+        width: 100px;
+        height: 50px;
+        /* Prevent text selection */
+        -webkit-user-select: none;
+        user-select: none;
+        /* Prevent highlighting on tap */
+        -webkit-tap-highlight-color: transparent;
     }
+
+    .game-info p:nth-child(2) {
+        display: none;
+    }
+
+    /* Prevent any touch actions from causing zoom */
+    * {
+        touch-action: manipulation;
+    }
+}
+
+/* Add styles for even smaller screens (iPhone) */
+@media (max-width: 380px) {
+    .container {
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .track {
+        width: 240px;
+        height: 320px;
+    }
+
+    .touch-btn {
+        width: 90px;
+        height: 45px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .game-info p {
+        font-size: 16px;
+    }
+}
+
+/* Fix for iOS Safari button styles */
+.touch-btn {
+    -webkit-appearance: none;
+    appearance: none;
 } 
